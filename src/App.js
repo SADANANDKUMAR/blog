@@ -68,8 +68,21 @@ function App() {
 
         </div>
       </div> */}
-      <br/>
-      <CardBlog/>
+      <br />
+      <CardBlog />
+
+      <div class="container text-center" style={{ marginTop: '9rem' }}>
+        <div class="row">
+          <div class="col">
+
+          </div>
+          <div class="col-md-auto">
+          </div>
+          <div class="col col-lg-2 " style={{color : 'white'}}>
+          ~  Develop By:  Sadanand
+          </div>
+        </div>
+      </div>
     </>
   );
 }
