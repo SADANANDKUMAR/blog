@@ -78,7 +78,7 @@ function App() {
           </div>
           <div class="col-md-auto">
           </div>
-          <div class="col col-lg-2 " style={{color : 'white'}}>
+          <div class="col col-lg-2" >
           ~  Develop By:  Sadanand
           </div>
         </div>

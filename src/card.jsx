@@ -16,6 +16,9 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { RWebShare } from "react-web-share";
 import Divider from '@mui/material/Divider';
+import axios from "axios";
+import Rating from '@mui/material/Rating';
+import Box from '@mui/material/Box';
 
 
 
@@ -32,6 +35,22 @@ const ExpandMore = styled((props) => {
 
 export default function CardBlog() {
 
+    const baseURL = "https://fakestoreapi.com/products/";
+
+    const [post, setPost] = React.useState();
+
+
+    console.log(post, 'post')
+
+    React.useEffect(() => {
+        axios.get(baseURL).then((response) => {
+
+            console.log(response.data, 'response.data')
+            setPost(response?.data);
+        });
+    }, []);
+
+
     const [expanded, setExpanded] = React.useState(false);
 
     const handleExpandClick = () => {
@@ -39,97 +58,130 @@ export default function CardBlog() {
     };
     return (
         <>
-            <Card sx={{
-                maxWidth: 400,
-                margin: ' 0 auto;',
-                float: 'none;', 
-                marginBottom: '10px;'
-            }}>
-                <CardHeader
-                    avatar={
-                        <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-                            R
-                        </Avatar>
-                    }
-                    action={
-                        <IconButton aria-label="settings">
-                            <MoreVertIcon />
-                        </IconButton>
-                    }
-                    title="Shrimp and Chorizo Paella"
-                    subheader="September 14, 2023"
-                />
-                <CardMedia
-                    component="img"
-                    height="194"
-                    image="./animals.png"
-                    alt="Paella dish"
-                />
-                <CardContent>
-                    <Typography variant="body2" color="text.secondary">
-                        ANIMALS          <Divider orientation="vertical" variant="middle" flexItem />
-                        NEWS
-                        Like humans, flamingos make friends for life
-                        The birds seek out buddies they get along with and avoid animals they dislike—a strategy that may boost their survival, a new study says.
-                    </Typography>
-                </CardContent>
-                <CardActions disableSpacing>
-                    <IconButton aria-label="add to favorites">
-                        <FavoriteIcon />
-                    </IconButton>
 
-                    <RWebShare
-                        data={{
-                            text: "Like humans, flamingos make friends for life",
-                            url: "https://on.natgeo.com/2zHaNup",
-                            title: "Animals",
-                        }}
-                        onClick={() => console.log("shared successfully!")}
-                    >
-                        {/* <button>Share 🔗</button> */}
-                        <IconButton aria-label="share">
-                            <ShareIcon />
-                        </IconButton>
-                    </RWebShare>
+            {/* {
+            post?.map( (item,index) =>{
+             <h1 key={index}> {item.title}</h1>
+            })
+        }
+         */}
 
 
-                    <ExpandMore
-                        expand={expanded}
-                        onClick={handleExpandClick}
-                        aria-expanded={expanded}
-                        aria-label="show more"
-                    >
-                        <ExpandMoreIcon />
-                    </ExpandMore>
-                </CardActions>
-                <Collapse in={expanded} timeout="auto" unmountOnExit>
-                    <CardContent>
-                        <Typography paragraph>Method:</Typography>
-                        <Typography paragraph>
-                            The enduring partnerships among flamingos include mated couples that build nests together and raise chicks every year, as well as same-sex friends and groups of three to six close buddies.
+            {post?.map((item, index) => {
+                return (
+                    <div key={index} >
+                        <Card sx={{
+                            maxWidth: 400,
+                            margin: ' 0 auto;',
+                            float: 'none;',
+                            marginBottom: '10px;'
+                        }}>
 
-                        </Typography>
-                        <Typography paragraph>
-                            Flamingos are known for their long legs, long necks, and party-pink feathers. Now scientists have discovered, for the first time, that the birds form long-lasting and loyal friendships—and that physical traits may play a role in those bonds.
 
-                            The enduring partnerships among flamingos include mated couples that build nests together and raise chicks every year, as well as same-sex friends and groups of three to six close buddies.
+                            {/* <CardHeader
+                                avatar={
+                                    <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
+                                        R
+                                    </Avatar>
+                                }
+                                action={
+                                    <IconButton aria-label="settings">
+                                        <MoreVertIcon />
+                                    </IconButton>
+                                }
+                                title="Shrimp and Chorizo Paella"
+                                subheader="September 14, 2023"
+                            /> */}
+                            <CardMedia
+                                component="img"
+                                height="194"
+                                image={item.image}
+                                alt="Paella dish"
+                            />
+                            <CardContent>
 
-                            Six species of flamingo inhabit large saline or alkaline lakes, mudflats, or shallow lagoons around the world, including the Americas, Africa, Europe, and Asia. The highly gregarious birds’ flocks typically number in the
-                        </Typography>
-                        <Typography paragraph>
-                            Flamingos are known for their long legs, long necks, and party-pink feathers. Now scientists have discovered, for the first time, that the birds form long-lasting and loyal friendships—and that physical traits may play a role in those bonds.
+                                <Typography gutterBottom variant="h5" component="div">
+                                    {item.title}
+                                </Typography>
+                                <Box
+                                    sx={{
+                                        '& > legend': { mt: 2 },
+                                    }}
+                                >
 
-                            The enduring partnerships among flamingos include mated couples that build nests together and raise chicks every year, as well as same-sex friends and groups of three to six close buddies.
+{/* 
+                                    <Typography component="legend">Rating</Typography> */}
+                                    <Rating name="read-only" value={item.rating.rate} readOnly />
+                                </Box>
+                                <Typography variant="body2" color="text.secondary">
+                                    <Divider orientation="vertical" variant="middle" flexItem />
+   
+                                    Description :<br />
+                                    {item.description}
+                                </Typography>
+                            </CardContent>
+                            <CardActions disableSpacing>
+                                <IconButton aria-label="add to favorites">
+                                    <FavoriteIcon />
+                                </IconButton>
 
-                            Six species of flamingo inhabit large saline or alkaline lakes, mudflats, or shallow lagoons around the world, including the Americas, Africa, Europe, and Asia. The highly gregarious birds’ flocks typically number in the
-                            minutes more. (Discard any mussels that don&apos;t open.)
-                        </Typography>
-                        <Typography>
-                            Set aside off of the heat to let rest for 10 minutes, and then serve.
-                        </Typography>
-                    </CardContent>
-                </Collapse>
-            </Card>
+                                <RWebShare
+                                    data={{
+                                        text: item.description,
+                                        url: item.image,
+                                        title: item.title,
+                                    }}
+                                    onClick={() => console.log("shared successfully!")}
+                                >
+                                    {/* <button>Share 🔗</button> */}
+                                    <IconButton aria-label="share">
+                                        <ShareIcon />
+                                    </IconButton>
+                                </RWebShare>
+
+
+                                <ExpandMore
+                                    expand={expanded}
+                                    onClick={handleExpandClick}
+                                    aria-expanded={expanded}
+                                    aria-label="show more"
+                                >
+                                    <ExpandMoreIcon />
+                                </ExpandMore>
+                            </CardActions>
+                            <Collapse in={expanded} timeout="auto" unmountOnExit>
+                                <CardContent>
+                                    <Typography paragraph>Method:</Typography>
+                                    <Typography paragraph>
+                                        The enduring partnerships among flamingos include mated couples that build nests together and raise chicks every year, as well as same-sex friends and groups of three to six close buddies.
+
+                                    </Typography>
+                                    <Typography paragraph>
+                                        Flamingos are known for their long legs, long necks, and party-pink feathers. Now scientists have discovered, for the first time, that the birds form long-lasting and loyal friendships—and that physical traits may play a role in those bonds.
+
+                                        The enduring partnerships among flamingos include mated couples that build nests together and raise chicks every year, as well as same-sex friends and groups of three to six close buddies.
+
+                                        Six species of flamingo inhabit large saline or alkaline lakes, mudflats, or shallow lagoons around the world, including the Americas, Africa, Europe, and Asia. The highly gregarious birds’ flocks typically number in the
+                                    </Typography>
+                                    <Typography paragraph>
+                                        Flamingos are known for their long legs, long necks, and party-pink feathers. Now scientists have discovered, for the first time, that the birds form long-lasting and loyal friendships—and that physical traits may play a role in those bonds.
+
+                                        The enduring partnerships among flamingos include mated couples that build nests together and raise chicks every year, as well as same-sex friends and groups of three to six close buddies.
+
+                                        Six species of flamingo inhabit large saline or alkaline lakes, mudflats, or shallow lagoons around the world, including the Americas, Africa, Europe, and Asia. The highly gregarious birds’ flocks typically number in the
+                                        minutes more. (Discard any mussels that don&apos;t open.)
+                                    </Typography>
+                                    <Typography>
+                                        Set aside off of the heat to let rest for 10 minutes, and then serve.
+                                    </Typography>
+                                </CardContent>
+                            </Collapse>
+                        </Card>
+                    </div>
+                )
+            })}
+
+
         </>
     )
 }
