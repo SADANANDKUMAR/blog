@@ -20,7 +20,7 @@ import axios from "axios";
 import Rating from '@mui/material/Rating';
 import Box from '@mui/material/Box';
 
-
+import { Helmet } from 'react-helmet';
 
 const ExpandMore = styled((props) => {
     const { expand, ...other } = props;
@@ -109,13 +109,13 @@ export default function CardBlog() {
                                     }}
                                 >
 
-{/* 
+                                    {/* 
                                     <Typography component="legend">Rating</Typography> */}
                                     <Rating name="read-only" value={item.rating.rate} readOnly />
                                 </Box>
                                 <Typography variant="body2" color="text.secondary">
                                     <Divider orientation="vertical" variant="middle" flexItem />
-   
+
                                     Description :<br />
                                     {item.description}
                                 </Typography>
@@ -124,12 +124,17 @@ export default function CardBlog() {
                                 <IconButton aria-label="add to favorites">
                                     <FavoriteIcon />
                                 </IconButton>
+                                <Helmet >
+                                    <meta property="og:title" content={item.title} />
+                                    <meta property="og:description" content={item.description} />
+                                    <meta property="og:image" content={item.image} />
+                                </Helmet>
 
                                 <RWebShare
                                     data={{
-                                        text: item.description,
-                                        url: item.image,
-                                        title: item.title,
+                                        text:  `<meta property="og:description" content=${item.description} />`,
+                                        url: `<meta property="og:image" content=${item.image} />`,
+                                        title: `<meta property="og:title" content=${item.title} />`,
                                     }}
                                     onClick={() => console.log("shared successfully!")}
                                 >
