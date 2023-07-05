@@ -125,9 +125,9 @@ export default function CardBlog() {
                                     <FavoriteIcon />
                                 </IconButton>
                                 <Helmet >
-                                    <meta property="og:title" content={item.title} />
-                                    <meta property="og:description" content={item.description} />
-                                    <meta property="og:image" content={item.image} />
+                                    <meta property="og:title" content={item?.title} />
+                                    <meta property="og:description" content={item?.description} />
+                                    <meta property="og:image" content={item?.image} />
                                 </Helmet>
 
                                 <RWebShare
