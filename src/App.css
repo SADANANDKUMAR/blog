@@ -1,4 +1,4 @@
-.App {
+/* .App {
   text-align: center;
 }
 
@@ -36,3 +36,24 @@
     transform: rotate(360deg);
   }
 }
+
+
+ */
+
+
+
+ .headertitle{
+
+  color:"white";
+  text-align : center;
+
+
+ }
+
+
+ .main{
+
+    width: auto;
+    height: 500px;
+    background-color: #aac1a1;
+ }
